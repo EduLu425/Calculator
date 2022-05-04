@@ -35,6 +35,13 @@ const clearButton = document.getElementById('clear');
 
 const equalsButton = document.getElementById('equals');
 
+const negativeButton = document.getElementById('negative');
+
+negativeButton.addEventListener('click', function(){
+    displayValue[0] *= -1;
+    display.value = parseInt(displayValue.join(''));
+})
+
 
 clearButton.addEventListener('click', () => {
     display.value = '';
@@ -43,6 +50,8 @@ clearButton.addEventListener('click', () => {
     n2 = 0;
     operatorCounter = 0;
     equalCounter = 0;
+    divZeroCounter = 0;
+    negativeCounter = 2;
 })
 
 let displayValue = [];
@@ -62,7 +71,10 @@ for (const button of operatorButtons) {
             n2 = parseInt(displayValue.join(''));
             if (operator === 'divide' && n2 === 0) {
                 display.value = 'ERROR';
-                n1 = NaN;
+                divZeroCounter++;
+            }
+            else if (divZeroCounter >= 1) {
+                display.value = 'NaN';
             }
             else {
                 display.value = operate(operator, n1, n2)
@@ -94,6 +106,17 @@ equalsButton.addEventListener('click', () => {
     equalCounter = 1;
     if (operator === 'divide' && n2 === 0) {
         display.value = 'ERROR';
+        divZeroCounter++;
+    }
+    else if (divZeroCounter >= 1) {
+        display.value = 'NaN';
+    }
+    else if (displayValue.length === 0) {
+        n2 = n1;
+        console.log(n2);
+        display.value = operate(operator, n1, n2);
+        n1 = parseInt(display.value);
+        n2 = 0;
     }
     else {
         display.value = operate(operator, n1, n2);

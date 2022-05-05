@@ -2,7 +2,7 @@ const add = (x, y) => x + y;
 const subtract = (x, y) => x - y;
 const multiply = (x, y) => x * y;
 const divide = (x, y) => x / y;
-var operatorCounter = 0;
+var operatorCounter = 0; /*Tracks if an operator button has already been pressed */ 
 var equalCounter = 0;
 var divZeroCounter = 0; /* Tracks if user has tried to divde by zero */
 
@@ -46,6 +46,22 @@ negativeButton.addEventListener('click', function(){
     displayValue = ((display.value).toString()).split('');
 })
 
+percentButton.addEventListener('click', function() {
+    display.value *= 0.01;
+    displayValue = ((display.value).toString()).split('');
+})
+
+decimalButton.addEventListener('click', function() {
+    if (displayValue.includes('.')) {
+        return;
+    }
+    else if (display.value % 1 === 0) {
+        displayValue = (((display.value).toString()).split(''));
+        displayValue.push('.');
+        display.value = displayValue.join('');
+    }
+})
+
 
 clearButton.addEventListener('click', () => {
     display.value = '';
@@ -66,12 +82,13 @@ for (const button of numberButtons) {
 
     })
 }
+/* Operator buttons store display value as n1 when pressed the first time. Strings together operations if a button has been pressed once */ 
 
 for (const button of operatorButtons) {
     button.addEventListener('click', function() {
         operator = button.id;  
         if (operatorCounter >= 1 && equalCounter === 0) {
-            n2 = parseInt(displayValue.join(''));
+            n2 = parseFloat(displayValue.join(''));
             if (operator === 'divide' && n2 === 0) {
                 display.value = 'ERROR';
                 divZeroCounter++;
@@ -81,7 +98,7 @@ for (const button of operatorButtons) {
             }
             else {
                 display.value = operate(operator, n1, n2)
-                n1 = parseInt(display.value);
+                n1 = parseFloat(display.value);
                 displayValue = [];
             }
 
@@ -93,7 +110,7 @@ for (const button of operatorButtons) {
             return
         }
         else {            
-            n1 = parseInt(displayValue.join(''));
+            n1 = parseFloat(displayValue.join(''));
             display.value = '';
             displayValue = [];
             operatorCounter++;
@@ -102,10 +119,10 @@ for (const button of operatorButtons) {
     })
 }
 
-
+/* Equals button runs operate function when pressed. Uses first value as second operand if no second operand is entered. Displays error message and NaN  until cleared when user attempts to divide by zero. */
 
 equalsButton.addEventListener('click', () => {
-    n2 = parseInt(displayValue.join(''));
+    n2 = parseFloat(displayValue.join(''));
     equalCounter = 1;
     if (operator === 'divide' && n2 === 0) {
         display.value = 'ERROR';
@@ -117,12 +134,12 @@ equalsButton.addEventListener('click', () => {
     else if (displayValue.length === 0) {
         n2 = n1;
         display.value = operate(operator, n1, n2);
-        n1 = parseInt(display.value);
+        n1 = parseFloat(display.value);
         n2 = 0;
     }
     else {
         display.value = operate(operator, n1, n2);
-        n1 = parseInt(display.value);
+        n1 = parseFloat(display.value);
         n2 = 0;
     }
 

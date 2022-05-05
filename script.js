@@ -41,6 +41,8 @@ const percentButton = document.getElementById('percent');
 
 const decimalButton = document.getElementById('decimal');
 
+const backButton = document.getElementById('back');
+
 negativeButton.addEventListener('click', function(){
     display.value *= -1;
     displayValue = ((display.value).toString()).split('');
@@ -62,6 +64,10 @@ decimalButton.addEventListener('click', function() {
     }
 })
 
+backButton.addEventListener('click', function() {
+        displayValue.pop();
+        display.value = displayValue.join('');
+})
 
 clearButton.addEventListener('click', () => {
     display.value = '';

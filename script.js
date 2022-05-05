@@ -4,7 +4,7 @@ const multiply = (x, y) => x * y;
 const divide = (x, y) => x / y;
 var operatorCounter = 0;
 var equalCounter = 0;
-var divZeroCounter = 0;
+var divZeroCounter = 0; /* Tracks if user has tried to divde by zero */
 
 const operate = function(operator, n1, n2) {
     switch (operator) {
@@ -37,9 +37,13 @@ const equalsButton = document.getElementById('equals');
 
 const negativeButton = document.getElementById('negative');
 
+const percentButton = document.getElementById('percent');
+
+const decimalButton = document.getElementById('decimal');
+
 negativeButton.addEventListener('click', function(){
-    displayValue[0] *= -1;
-    display.value = parseInt(displayValue.join(''));
+    display.value *= -1;
+    displayValue = ((display.value).toString()).split('');
 })
 
 
@@ -51,7 +55,6 @@ clearButton.addEventListener('click', () => {
     operatorCounter = 0;
     equalCounter = 0;
     divZeroCounter = 0;
-    negativeCounter = 2;
 })
 
 let displayValue = [];
@@ -113,7 +116,6 @@ equalsButton.addEventListener('click', () => {
     }
     else if (displayValue.length === 0) {
         n2 = n1;
-        console.log(n2);
         display.value = operate(operator, n1, n2);
         n1 = parseInt(display.value);
         n2 = 0;

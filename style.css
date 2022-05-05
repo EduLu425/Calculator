@@ -52,3 +52,27 @@ input {
 #clear {
     background-color: darkkhaki
 }
+
+#back {
+    background-color: darkkhaki;
+}
+
+#multiply {
+    background-color: orangered;
+}
+
+#divide {
+    background-color: darkorange;
+}
+
+#minus {
+    background-color: rgb(192, 53, 3);
+}
+
+#plus {
+    background-color: rgb(160, 44, 2);
+}
+
+#equals {
+    background-color:rgb(192, 3, 3);
+}
